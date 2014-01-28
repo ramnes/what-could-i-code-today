@@ -1,0 +1,1 @@
+web: gunicorn wcict:app --max-requests 1
