@@ -1,16 +1,29 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
-  <title>
-    What could I code today?
-  </title>
+  <head>
+    <title>
+      What could I code today?
+    </title>
+    <link rel="icon" type="image/png" href="images/favicon.png"/>
+    <link href='http://fonts.googleapis.com/css?family=Fauna+One' rel='stylesheet' type='text/css'/>
+    <style type="text/css">
+      body {
+	  margin-top: 20%;
+	  text-align: center;
+	  font-family: Fauna One, sans-serif;
+	  font-size: 130%;
+          color: #888888;
+      }
+
+      .subject {
+	  color: {% if color %}{{color}}{% else %}#228899{% endif %};
+      }
+    </style>
+  </head>
   <body>
     Today, I could code 
-    {% if subject %}
-      {{ subject }}
-    {% else %}
-      a random coding subject generator with Python3.3 and Heroku.
-    {% endif %}
+    <span class="subject">
+      {% if subject %}{{subject}}{% else %}"a random coding subject generator in Python3 with Flask."{% endif %}
+    </span>
   </body>
 </html>
-
-
