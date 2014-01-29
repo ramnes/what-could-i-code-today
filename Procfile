@@ -1,1 +1,1 @@
-web: gunicorn wcict:app --config=config/heroku.py
+web: ./wcict.py --config=config/heroku.py
