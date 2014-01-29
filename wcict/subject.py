@@ -2,24 +2,37 @@ from random import choice
 from flask import current_app
 
 
-languages = ["C", "C-ANSI", "C++", "C#",
+languages = ["C", "C-ANSI", "C89", "C++", "C#", "Objective-C", "Go",
              "Python", "Python2.7", "Python3",
-             "Java",
-             "Javascript",
-             "Bash", "SH", "PHP",
+             "Java", "Scala", "Clojure", "Groovy",
+             "Javascript", "Node.js",
+             "Ruby", "Ruby on Rails",
+             "Bash", "PHP", "Perl",
+             "ADA", "Fortran", "Pascal",
+             "Lisp", "Scheme",
              "Whitespace", "Brainfuck", "Lua", "ASM"]
 
 whats = ["a random coding subject generator", "a {language} compiler",
          "{language} bindings", "a {language}-based library wrapper",
-         "a {provider} API wrapper", "a {techno} client"]
+         "a {provider} API wrapper", "a {techno} client",
+         "a key-value store", "a NoSQL database", "a SQL database",
+         "a multiplayer game", "an OS", "a kernel module",
+         "a MVC framework", "a {language} packages install tool",
+         "a biomolecules simulator", "an new altcoin"]
 
-technos = ["Heroku", "Amazon AWS", "Firebase",
+technos = ["Heroku", "Amazon AWS", "Firebase", "Amazon S3",
            "MongoDB", "PostgreSQL", "MySQL", "Cassandra", "MySQL", "Riak",
            "Docker", "VirtualBox", "VMWare",
            "CUDA", "OpenGL", "Unity",
-           "my dick", "my feets"]
+           "Sphinx",
+           "my feets"]
 
-providers = ["Youtube", "Facebook", "DailyMotion", "Yahoo"]
+providers = ["Youtube", "DailyMotion",
+             "Facebook", "Twitter", "Google+", "LinkedIn"
+             "Yahoo", "Google", "Bing",
+             "Deezer", "Grooveshark", "Spotify",
+             "Github", "Bitbucket",
+             "Pastebin", "Pastie"]
 
 
 def random_subject(app=current_app):
