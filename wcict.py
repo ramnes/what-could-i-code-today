@@ -8,7 +8,9 @@ from options import options, define, parse_command_line
 
 
 define("config", type=str, help="apply this config")
-define("toto", type=str, help="toto")
+define("host", type=str, help="bind to this host", default="0.0.0.0")
+define("port", type=int, help="bind to this port", default=8000)
+
 app = Flask(__name__)
 
 
@@ -35,4 +37,4 @@ def get_home():
 if __name__ == '__main__':
     argv = parse_command_line()
     init_app()
-    app.run()
+    app.run(host=options.host, port=options.port)

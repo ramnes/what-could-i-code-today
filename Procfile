@@ -1,1 +1,1 @@
-web: ./wcict.py --config=heroku.py
+web: ./wcict.py --port=$PORT --config=heroku.py
