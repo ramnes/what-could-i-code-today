@@ -3,8 +3,9 @@ import logging
 import postgresql
 
 from flask import Flask, render_template
-from subject import random_subject
-from options import options, define, parse_command_line
+
+from wcict.subject import random_subject
+from tools.options import options, define, parse_command_line
 
 
 define("config", type=str, help="apply this config")
@@ -37,4 +38,4 @@ def get_home():
 if __name__ == '__main__':
     argv = parse_command_line()
     init_app()
-    app.run(host=options.host, port=options.port)
+    app.run(debug=app.config["DEBUG"], host=options.host, port=options.port)
