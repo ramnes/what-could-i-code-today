@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3.3
 #
 # Copyright 2009 Facebook
 #
@@ -114,7 +114,7 @@ class _Options(dict):
         if args is None:
             args = sys.argv
         remaining = []
-        for i in xrange(1, len(args)):
+        for i in range(1, len(args)):
             # All things after the last option are command line arguments
             if not args[i].startswith("-"):
                 remaining = args[i:]
@@ -155,15 +155,15 @@ class _Options(dict):
 
     def print_help(self, file=sys.stdout):
         """Prints all the command line options to stdout."""
-        print >> file, "Usage: %s [OPTIONS]" % sys.argv[0]
-        print >> file, "\nOptions:\n"
+        print("Usage: %s [OPTIONS]" % sys.argv[0], file=file)
+        print("\nOptions:\n", file=file)
         by_group = {}
-        for option in self.itervalues():
+        for option in self.values():
             by_group.setdefault(option.group_name, []).append(option)
 
         for filename, o in sorted(by_group.items()):
             if filename:
-                print >> file, "\n%s options:\n" % os.path.normpath(filename)
+                print("\n%s options:\n" % os.path.normpath(filename), file=file)
             o.sort(key=lambda option: option.name)
             for option in o:
                 prefix = option.name
@@ -175,10 +175,10 @@ class _Options(dict):
                 lines = textwrap.wrap(description, 79 - 35)
                 if len(prefix) > 30 or len(lines) == 0:
                     lines.insert(0, '')
-                print >> file, "  --%-30s %s" % (prefix, lines[0])
+                print("  --%-30s %s" % (prefix, lines[0]), file=file)
                 for line in lines[1:]:
-                    print >> file, "%-34s %s" % (' ', line)
-        print >> file
+                    print("%-34s %s" % (' ', line), file=file)
+        print(file=file)
 
 
 class _Option(object):
@@ -204,7 +204,7 @@ class _Option(object):
             datetime.datetime: self._parse_datetime,
             datetime.timedelta: self._parse_timedelta,
             bool: self._parse_bool,
-            basestring: self._parse_string,
+            str: self._parse_string,
         }.get(self.type, self.type)
         if self.multiple:
             self._value = []
@@ -401,36 +401,32 @@ class _LogFormatter(logging.Formatter):
             fg_color = (curses.tigetstr("setaf") or
                         curses.tigetstr("setf") or "")
             if (3, 0) < sys.version_info < (3, 2, 3):
-                fg_color = unicode(fg_color, "ascii")
+                fg_color = fg_color
             self._colors = {
-                logging.DEBUG: unicode(curses.tparm(fg_color, 4),  # Blue
-                                       "ascii"),
-                logging.INFO: unicode(curses.tparm(fg_color, 2),  # Green
-                                      "ascii"),
-                logging.WARNING: unicode(curses.tparm(fg_color, 3),  # Yellow
-                                         "ascii"),
-                logging.ERROR: unicode(curses.tparm(fg_color, 1),  # Red
-                                       "ascii"),
+                logging.DEBUG: str(curses.tparm(fg_color, 4), "ascii"), # Blue
+                logging.INFO: str(curses.tparm(fg_color, 2), "ascii"), # Green
+                logging.WARNING: str(curses.tparm(fg_color, 3), "ascii"), # Yellow
+                logging.ERROR: str(curses.tparm(fg_color, 1), "ascii") # Red
             }
-            self._normal = unicode(curses.tigetstr("sgr0"), "ascii")
+            self._normal = str(curses.tigetstr("sgr0"), "ascii")
 
     def format(self, record):
         try:
             record.message = record.getMessage()
         except Exception as e:
             record.message = "Bad message (%r): %r" % (e, record.__dict__)
-        assert isinstance(record.message, basestring)  # guaranteed by logging
+        assert isinstance(record.message, str)  # guaranteed by logging
         record.asctime = time.strftime(
             "%y%m%d %H:%M:%S", self.converter(record.created))
         prefix = '[%(levelname)1.1s %(asctime)s %(module)s:%(lineno)d]' % \
             record.__dict__
         if self._color:
-            prefix = (self._colors.get(record.levelno, self._normal) +
+            prefix = (self._colors.get(record.levelno) +
                       prefix + self._normal)
 
         # Encoding notes:  The logging module prefers to work with character
         # strings, but only enforces that log messages are instances of
-        # basestring.  In python 2, non-ascii bytestrings will make
+        # str.  In python 2, non-ascii bytestrings will make
         # their way through the logging framework until they blow up with
         # an unhelpful decoding error (with this formatter it happens
         # when we attach the prefix, but there are other opportunities for

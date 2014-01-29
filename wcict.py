@@ -1,25 +1,30 @@
 #!/usr/bin/env python3.3
+import logging
 import postgresql
 
 from flask import Flask, render_template
 from subject import random_subject
-from options import options, define
+from options import options, define, parse_command_line
 
 
 define("config", type=str, help="apply this config")
+define("toto", type=str, help="toto")
 app = Flask(__name__)
 
 
 def init_app():
-    app.config.from_pyfile("config/default.py")
+    app.config.from_pyfile('config/default.py')
     if options.config:
-        app.config.from_pyfile(options.config)
+        logging.info("Loading config %s" % options.config)
+        app.config.from_pyfile("config/%s" % options.config)
     app.db = init_db()
     return app
 
 
 def init_db():
-    return postgresql.open(app.config["POSTGRES_URL"])
+    url = app.config["POSTGRES_URL"]
+    logging.info("Connecting to %s", url)
+    return postgresql.open(url)
 
 
 @app.route('/', methods=['GET'])
@@ -27,6 +32,7 @@ def get_home():
     return render_template("home.html", subject=random_subject())
 
 
-init_app()
 if __name__ == '__main__':
+    argv = parse_command_line()
+    init_app()
     app.run()
