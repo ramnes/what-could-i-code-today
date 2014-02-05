@@ -8,7 +8,7 @@ languages = ["C", "C-ANSI", "C89", "C++", "C#", "Objective-C", "Go",
              "Javascript", "Node.js",
              "Ruby", "Ruby on Rails",
              "Bash", "PHP", "Perl",
-             "ADA", "Fortran", "Pascal",
+             "ADA", "Fortran", "Pascal", "Perfect Developer",
              "Lisp", "Scheme",
              "Whitespace", "Brainfuck", "Lua", "ASM"]
 
