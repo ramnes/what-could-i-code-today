@@ -28,7 +28,7 @@ technos = ["Heroku", "Amazon AWS", "Firebase", "Amazon S3",
            "my feets"]
 
 providers = ["Youtube", "DailyMotion",
-             "Facebook", "Twitter", "Google+", "LinkedIn"
+             "Facebook", "Twitter", "Google+", "LinkedIn",
              "Yahoo", "Google", "Bing",
              "Deezer", "Grooveshark", "Spotify",
              "Github", "Bitbucket",
