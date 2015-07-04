@@ -4,7 +4,7 @@ import postgresql
 
 from flask import Flask, render_template
 
-from wcict.subject import random_subject
+from wcict.subject import get_random_subject
 from tools.options import options, define, parse_command_line
 
 
@@ -32,7 +32,7 @@ def init_db():
 
 @app.route('/', methods=['GET'])
 def get_home():
-    return render_template("home.html", subject=random_subject())
+    return render_template("home.html", subject=get_random_subject())
 
 
 if __name__ == '__main__':

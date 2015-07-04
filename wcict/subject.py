@@ -1,5 +1,4 @@
 from random import choice
-from flask import current_app
 
 
 languages = ["C", "C-ANSI", "C89", "C++", "C#", "Objective-C", "Go",
@@ -35,7 +34,7 @@ providers = ["Youtube", "DailyMotion",
              "Pastebin", "Pastie"]
 
 
-def random_subject(app=current_app):
+def get_random_subject():
     what = choice(whats)
     what = what.format(language=choice(languages),
                        provider=choice(providers),
@@ -45,4 +44,4 @@ def random_subject(app=current_app):
     return "{} in {} with {}".format(what, language, techno)
 
 
-__all__ = ["random_subject"]
+__all__ = ["get_random_subject"]
